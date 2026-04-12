@@ -6,7 +6,7 @@ def get_mask_card_number(cart_number: Union[int]) -> Union[str]:
     list_cart_number = [number for number in (str(cart_number))]
     list_cart_number[6:-4] = ["*", "*", "*", "*", "*", "*"]
     for num in range(len(list_cart_number) // 4 - 1, 0, -1):
-        list_cart_number[num * 4 : num * 4] = [" "]
+        list_cart_number[num * 4: num * 4] = [" "]
 
     mask_cart_number = "".join(list_cart_number)
     return mask_cart_number
