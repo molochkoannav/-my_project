@@ -5,4 +5,5 @@ max-line-length = 119
 exclude =
     .git,
     .venv
+    venv
     __pycache__
