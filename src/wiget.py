@@ -19,4 +19,3 @@ def get_date(data: str) -> str:
     data_time = data[:10].split("-")
 
     return f"{data_time[2]}.{data_time[1]}.{data_time[0]}"
-

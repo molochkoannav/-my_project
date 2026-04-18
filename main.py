@@ -1,9 +1,9 @@
 from src.masks import get_mask_account
 from src.masks import get_mask_card_number
-from src.wiget import get_date
-from src.wiget import mask_account_card
 from src.processing import filter_by_state
 from src.processing import sort_by_date
+from src.wiget import get_date
+from src.wiget import mask_account_card
 
 if __name__ == '__main__':
     print(mask_account_card("Maestro 1596837868705199"))
