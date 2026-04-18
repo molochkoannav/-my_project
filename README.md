@@ -16,7 +16,8 @@
 
 1.Клонируйте репозиторий:
 
-pip install (git@github.com:molochkoannav/-my_project.git)
+git clone [git@github.com:molochkoannav/my_project.git]
+cd my_project
 (Опционально) Создайте и активируйте виртуальное окружение:
 
 
@@ -43,6 +44,12 @@ pip install -r requirements.txt
 3.get_date(data: str) -> str:
 Конвертирует правильное обозначение даты:
 ДД.ММ.ГГГГ
+
+4.filter_by_state(api_list: list, state: str = "EXECUTED") -> list
+Функция фильтрует списки словарей, по ключу 'state'
+
+5.sort_by_date(api_list: list, sort_by: str = "date", reverse: bool = True) -> list
+Функция сортирует список словарей по дате
 
 Данный виджет разработан в рамках учебного проекта.
 По всем вопросам обращайтесь по адресу [molochkoannav@gmail.com].
