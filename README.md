@@ -46,3 +46,4 @@ pip install -r requirements.txt
 
 Данный виджет разработан в рамках учебного проекта.
 По всем вопросам обращайтесь по адресу [molochkoannav@gmail.com].
+
