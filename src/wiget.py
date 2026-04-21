@@ -3,7 +3,7 @@ from src.masks import get_mask_card_number
 
 
 def mask_account_card(number: str) -> str:
-    """функция обрабатывает информацию как о картах, так и о счетах"""
+    """Функция обрабатывает информацию как о картах, так и о счетах"""
     if "счет" in number.lower():
         account = get_mask_account(int(number[-20:]))
 
@@ -15,8 +15,7 @@ def mask_account_card(number: str) -> str:
 
 
 def get_date(data: str) -> str:
-    """Фуенуия конвертирует правильное обозначение даты ДД.ММ.ГГГГ"""
+    """Функция конвертирует правильное обозначение даты ДД.ММ.ГГГГ"""
     data_time = data[:10].split("-")
 
     return f"{data_time[2]}.{data_time[1]}.{data_time[0]}"
-
