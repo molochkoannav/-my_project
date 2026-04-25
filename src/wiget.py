@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from src.masks import get_mask_account
 from src.masks import get_mask_card_number
 
@@ -51,8 +53,85 @@ def mask_account_card(number: str) -> str:
     return card_number
 
 
-def get_date(data: str) -> str:
-    """Функция конвертирует правильное обозначение даты ДД.ММ.ГГГГ"""
-    data_time = data[:10].split("-")
 
-    return f"{data_time[2]}.{data_time[1]}.{data_time[0]}"
+def get_date(date_string: str) -> str:
+    """
+    Преобразует разные форматы даты в ДД.ММ.ГГГГ
+    """
+
+    date_string = date_string.strip()
+
+# Формат: ГГГГ-ММ-ДД
+    try:
+        dt = datetime.strptime(date_string, "%Y-%m-%d")
+        return dt.strftime("%d.%m.%Y")
+    except ValueError:
+        pass
+
+# ISO формат 2024-03-11T02:26:18.671407
+    try:
+        if 'T' in date_string and '.' in date_string:
+            date_string_clean = date_string.split('.')[0]
+            dt = datetime.strptime(date_string_clean, "%Y-%m-%dT%H:%M:%S")
+            return dt.strftime("%d.%m.%Y")
+    except ValueError:
+        pass
+
+# ISO формат 2024-03-11T02:26:18
+    try:
+        dt = datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%S")
+        return dt.strftime("%d.%m.%Y")
+    except ValueError:
+        pass
+
+# Формат: ММ/ДД/ГГГГ (американский)
+    try:
+        dt = datetime.strptime(date_string, "%m/%d/%Y")
+        return dt.strftime("%d.%m.%Y")
+    except ValueError:
+        pass
+
+# Формат: ДД.ММ.ГГГГ
+    try:
+        dt = datetime.strptime(date_string, "%d.%m.%Y")
+        return dt.strftime("%d.%m.%Y")
+    except ValueError:
+        pass
+
+# Формат: ДД-ММ-ГГГГ
+    try:
+        dt = datetime.strptime(date_string, "%d-%m-%Y")
+        return dt.strftime("%d.%m.%Y")
+    except ValueError:
+        pass
+
+# Формат: ДД/ММ/ГГГГ
+    try:
+        dt = datetime.strptime(date_string, "%d/%m/%Y")
+        return dt.strftime("%d.%m.%Y")
+    except ValueError:
+        pass
+
+# Формат: Месяц ДД, ГГГГ
+    try:
+        dt = datetime.strptime(date_string, "%B %d, %Y")
+        return dt.strftime("%d.%m.%Y")
+    except ValueError:
+        pass
+
+# Формат: Месяц ДД ГГГГ
+    try:
+        dt = datetime.strptime(date_string, "%B %d %Y")
+        return dt.strftime("%d.%m.%Y")
+    except ValueError:
+        pass
+
+# Формат: ДД Месяц ГГГГ
+    try:
+        dt = datetime.strptime(date_string, "%d %B %Y")
+        return dt.strftime("%d.%m.%Y")
+    except ValueError:
+        pass
+
+
+    return "Ошибка: неверный формат даты"

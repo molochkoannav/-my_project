@@ -18,3 +18,16 @@ from src.wiget import get_date
 ])
 def test_mask_account_card(card_number, expected):
     assert mask_account_card(card_number) == expected
+
+@pytest.mark.parametrize("format_date, expected", [
+    ( '2024-03-11T02:26:18.671407','11.03.2024'),
+    ('2024-03-11T02:26:18','11.03.2024'),
+    ('2024-12-31', '31.12.2024'),
+    ('31.12.2024', '31.12.2024'),
+    ('December 31, 2024', '31.12.2024'),
+    ('ddmmgggg', 'Ошибка: неверный формат даты'),
+    ('', 'Ошибка: неверный формат даты')
+])
+
+def test_get_date(format_date, expected):
+    assert get_date(format_date) == expected
