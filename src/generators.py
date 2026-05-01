@@ -3,7 +3,7 @@ from typing import Any
 
 
 def filter_by_currency(transactions: list[dict], cur: str = "USD") -> Generator[dict[Any, Any] | str]:
-    """Функция фильтрует id по типу валюты (по умолчанию - USD)"""
+    """Функция фильтрует транзакции по типу валюты (по умолчанию - USD)"""
     filtered = [
         item
         for item in transactions
