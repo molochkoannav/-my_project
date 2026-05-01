@@ -2,9 +2,11 @@ from collections.abc import Generator
 
 def filter_by_currency(transactions: list[dict], cur: str = "USD") -> Generator[dict, None, None]:
     """Функция фильтрует id по типу валюты (по умолчанию - USD)"""
-    yield from (api for api in transactions if api.get("operationAmount", {}).get("currency", "Валюта не определена").get("code") == cur)
+    filtered = [item for item in transactions
+                if isinstance(item, dict) and
+                item.get("operationAmount", {}).get("currency", {}).get("code") == cur]
 
-
+    yield from (item if item else "Словарь пуст" for item in filtered)
 
 def transaction_descriptions(transactions: list[dict])-> Generator[dict, None, None]:
     """Функция возвращает описание каждой операции."""

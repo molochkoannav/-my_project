@@ -71,13 +71,15 @@ if __name__ == "__main__":
              "to": "Счет 14211924144426031657"}
         ]
     )
+
+    trans = []
     usd_transactions = filter_by_currency(transactions, "USD")
     for _ in range(3):
         print(next(usd_transactions))
 
-    descriptions = transaction_descriptions(transactions)
-    for _ in range(5):
-        print(next(descriptions))
+    descriptions = transaction_descriptions(trans)
+    for _ in range(1):
+        print(next(descriptions, "пусто"))
 
-    for card_number in card_number_generator(1, 5):
+    for card_number in card_number_generator(1000000000000000, 1000000000000001):
         print(card_number)

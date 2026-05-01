@@ -145,6 +145,6 @@ def no_required_currency() -> list[dict]:
              ]
 
 @pytest.fixture()
-def lost_list()-> list[dict]:
+def empty_list()-> list[dict]:
     """Фикстура возвращает пустой список"""
     return []
