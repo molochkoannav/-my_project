@@ -1,3 +1,5 @@
+import pytest
+
 from src.generators import card_number_generator
 from src.generators import filter_by_currency
 from src.generators import transaction_descriptions
@@ -33,18 +35,21 @@ def test_transaction_descriptions(all_currency: list[dict], empty_list: list) ->
     assert next(expected_2, None) is None
 
 
-def test_card_number_generator() -> None:
+@pytest.mark.parametrize(
+    "start, end, expected",
+    [
+        (1, 2, "0000 0000 0000 0001"),
+        (2, 3, "0000 0000 0000 0002"),
+        (3, 4, "0000 0000 0000 0003"),
+        (0, 1, "0000 0000 0000 0000"),
+        (1, 2, "0000 0000 0000 0001"),
+        (10, 11, "0000 0000 0000 0010"),
+        (11, 12, "0000 0000 0000 0011"),
+        (1000000000000000, 1000000000000001, "1000 0000 0000 0000"),
+        (1000000000000001, 1000000000000002, "1000 0000 0000 0001"),
+    ],
+)
+def test_card_number_generator(start: int, end: int, expected: str) -> None:
     """Функция для проверки правильности генерации номера карты"""
-    generator = card_number_generator(1, 3)
-    generator_1 = card_number_generator(0, 1)
-    generator_2 = card_number_generator(10, 11)
-    generator_3 = card_number_generator(1000000000000000, 1100000000000000)
-    assert next(generator) == "0000 0000 0000 0001"
-    assert next(generator) == "0000 0000 0000 0002"
-    assert next(generator) == "0000 0000 0000 0003"
-    assert next(generator_1) == "0000 0000 0000 0000"
-    assert next(generator_1) == "0000 0000 0000 0001"
-    assert next(generator_2) == "0000 0000 0000 0010"
-    assert next(generator_2) == "0000 0000 0000 0011"
-    assert next(generator_3) == "1000 0000 0000 0000"
-    assert next(generator_3) == "1000 0000 0000 0001"
+    generator = card_number_generator(start, end)
+    assert next(generator) == expected
