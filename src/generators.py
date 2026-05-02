@@ -2,7 +2,7 @@ from collections.abc import Generator
 from typing import Any
 
 
-def filter_by_currency(transactions: list[dict], cur: str = "USD") -> Generator[dict[Any, Any] | str]:
+def filter_by_currency(transactions: list[dict], cur: str = "USD") -> Generator[dict[Any, Any], None, None]:
     """Функция фильтрует транзакции по типу валюты (по умолчанию - USD)"""
     filtered = [
         item
@@ -10,7 +10,7 @@ def filter_by_currency(transactions: list[dict], cur: str = "USD") -> Generator[
         if isinstance(item, dict) and item.get("operationAmount", {}).get("currency", {}).get("code") == cur
     ]
 
-    yield from (item if item else "Словарь пуст" for item in filtered)
+    yield from filtered
 
 
 def transaction_descriptions(transactions: list[dict]) -> Generator[dict, None, None]:
