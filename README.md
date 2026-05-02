@@ -54,6 +54,16 @@ pip install -r requirements.txt
 5.sort_by_date(api_list: list, sort_by: str = "date", reverse: bool = True) -> list
 Функция сортирует список словарей по дате
 
+6.filter_by_currency(transactions: list, cur: str = "USD") -> Generator
+Функция фильтрует id по типу валюты (по умолчанию - USD)
+
+7.transaction_descriptions(transactions: list)-> Generator
+Функция возвращает описание каждой транзакции
+
+8.card_number_generator(start_num: int, stop_num: int)-> Generator
+Функция генерирует номера банковских карт в формате ХХХХ ХХХХ ХХХХ ХХХХ
+
+
 
 ## *Тестирование*
 
@@ -64,18 +74,18 @@ pip install -r requirements.txt
 - test_masks.py (Модуль тестирования маскировки номеров карт и счетов отдельно)
 - test_wiget.py (Модуль тестирования маскировки карт и счетов, а так же преобразования дат)
 - test_processing.py (Модуль тестирования фильтрации и сортировки данных)
+- test_generators.py( Модуль тестирования генераторых функций)
 
 ### Результаты тестирования
 - ✅ **Протестированы все функции** 
-- 📊 **Покрытие кода тестами: 91%**
+- 📊 **Покрытие кода тестами: 96%**
 - 🔍 Все краевые случаи и возможные ошибки обработаны
 
 ### Скриншот отчета о покрытии
 
-Отчет о покрытии тестами 91%
-![Отчет о покрытии](images/test.jpg)
-*На скриншоте представлен отчет инструмента pytest --cov=src --cov-branch --cov-report=term
-, демонстрирующий 91% покрытие веток.*
+Отчет о покрытии тестами 96%
+![Отчет о покрытии](images/test_1.jpg)
+*На скриншоте представлен отчет инструмента pytest --cov, демонстрирующий 96% покрытие кода.*
 
 
 ### Запуск тестов (для разработчиков)
@@ -85,6 +95,7 @@ pip install -r requirements.txt
 pip install pytest pytest-cov
 
 # Запуск всех тестов с отчетом о покрытии
+pytest --cov
 pytest --cov=. --cov-report=term-missing
 
 # Генерация HTML-отчета (откроется в браузере)
