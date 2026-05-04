@@ -8,3 +8,4 @@ def log(func: Callable, file_name) -> Callable:
     #     if func(file_name):
     #         with open (f'{func__name__}', 'a') as file:
     #
+
