@@ -17,6 +17,7 @@ def log(filename: [str] = None):
                     start_time = time()
                     result = func(*args, **kwargs)
                     end_time = time()
+                    print(f"{datetime.datetime.now()} Выполняется функция {func.__name__}")
                     print(f"{func.__name__} ok")
                     print(f"Функция {func.__name__} выполнена за {end_time - start_time} секунд")
                     print(result)
@@ -24,12 +25,13 @@ def log(filename: [str] = None):
                 except Exception as e:
                     print(f"{func.__name__} error:{type(e).__name__} message: {e}")
             else:
+                project_root = Path("C:/Users/kirill/Desktop/python_learing/projects/my_proj")
+                path_file = project_root / filename
                 try:
                     start_time = time()
                     result = func(*args, **kwargs)
                     end_time = time()
-                    project_root = Path("C:/Users/kirill/Desktop/python_learing/projects/my_proj")
-                    path_file = project_root / filename
+
                     with open(path_file, "a", encoding="utf-8") as file:
                         file.write(f"{datetime.datetime.now()} Выполняется функция {func.__name__}\n")
                         file.write(f"Функция {func.__name__} выполнена за {end_time - start_time} секунд\n")
@@ -41,3 +43,4 @@ def log(filename: [str] = None):
             return result
         return logging_wrapper
     return my_decorator
+

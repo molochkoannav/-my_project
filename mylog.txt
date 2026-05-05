@@ -1,3 +1,7 @@
 2026-05-05 20:33:30.733727 Выполняется функция my_function
 Функция my_function выполнена за 2.1457672119140625e-06 секунд
 Результат: 3
+2026-05-05 20:50:29.100074 Выполняется функция my_function
+Функция my_function выполнена за 1.430511474609375e-06 секунд
+Результат: 3
+my_function error:TypeError message: unsupported operand type(s) for +: 'int' and 'str'
