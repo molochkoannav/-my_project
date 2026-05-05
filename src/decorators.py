@@ -3,6 +3,7 @@ import datetime
 from functools import wraps
 from typing import Any
 from pathlib import Path
+
 def log(filename: [str] = None):
     """Декоратор для логирования выполнения функции"""
     def my_decorator(func):
@@ -40,14 +41,3 @@ def log(filename: [str] = None):
             return result
         return logging_wrapper
     return my_decorator
-
-
-
-
-
-
-@log(filename="mylog.txt")
-def my_function(x, y):
-    return x + y
-
-my_function(1, 2)
