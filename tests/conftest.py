@@ -208,12 +208,3 @@ def empty_list() -> list[dict]:
     """Фикстура возвращает пустой список"""
     return []
 
-# @pytest.fixture()
-# def check_decorator(capsys):
-#     """Фикстура проверяет работу декоратора через сapsys"""
-#     def my_decorator(func):
-#         func()
-#         out, err = capsys.readouterr()
-#         assert out == expected_output
-#
-#     return my_decorator

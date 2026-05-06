@@ -33,21 +33,21 @@ def log(filename: [str] = None):
                     result = func(*args, **kwargs)
                     end_time = time()
 
-                    with open(path_file, "a", encoding="utf-8") as file:
+                    with open(path_file, "w", encoding="utf-8") as file:
                         # file.write(f"{datetime.datetime.now()} Выполняется функция {func.__name__}\n")
-                        file.write(f"{func.__name__} ok")
+                        file.write(f"{func.__name__} ok\n")
                         # file.write(f"Функция {func.__name__} выполнена за {end_time - start_time} секунд\n")
                         file.write(f"Результат: {result}\n")
                 except Exception as e:
-                    with open(path_file, "a", encoding="utf-8") as file:
+                    with open(path_file, "w", encoding="utf-8") as file:
                         file.write(f"{func.__name__} error:{type(e).__name__} message: {e}")
 
             return result
         return logging_wrapper
     return my_decorator
 
-@log()
+@log(filename="mylog.txt")
 def my_function(x, y):
     return x + y
 
-my_function(1, "q")
+my_function(1, "2")
