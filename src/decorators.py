@@ -3,6 +3,7 @@ import datetime
 from functools import wraps
 from typing import Any
 from pathlib import Path
+import sys
 
 def log(filename: [str] = None):
     """Декоратор для логирования выполнения функции"""
@@ -17,13 +18,13 @@ def log(filename: [str] = None):
                     start_time = time()
                     result = func(*args, **kwargs)
                     end_time = time()
-                    print(f"{datetime.datetime.now()} Выполняется функция {func.__name__}")
+                    # print(f"{datetime.datetime.now()} Выполняется функция {func.__name__}")
                     print(f"{func.__name__} ok")
-                    print(f"Функция {func.__name__} выполнена за {end_time - start_time} секунд")
+                    # print(f"Функция {func.__name__} выполнена за {end_time - start_time} секунд")
                     print(result)
 
                 except Exception as e:
-                    print(f"{func.__name__} error:{type(e).__name__} message: {e}")
+                    print(f"{func.__name__} error:{type(e).__name__} message: {e}", file=sys.stderr)
             else:
                 project_root = Path("C:/Users/kirill/Desktop/python_learing/projects/my_proj")
                 path_file = project_root / filename
@@ -33,8 +34,9 @@ def log(filename: [str] = None):
                     end_time = time()
 
                     with open(path_file, "a", encoding="utf-8") as file:
-                        file.write(f"{datetime.datetime.now()} Выполняется функция {func.__name__}\n")
-                        file.write(f"Функция {func.__name__} выполнена за {end_time - start_time} секунд\n")
+                        # file.write(f"{datetime.datetime.now()} Выполняется функция {func.__name__}\n")
+                        file.write(f"{func.__name__} ok")
+                        # file.write(f"Функция {func.__name__} выполнена за {end_time - start_time} секунд\n")
                         file.write(f"Результат: {result}\n")
                 except Exception as e:
                     with open(path_file, "a", encoding="utf-8") as file:
@@ -44,3 +46,8 @@ def log(filename: [str] = None):
         return logging_wrapper
     return my_decorator
 
+@log()
+def my_function(x, y):
+    return x + y
+
+my_function(1, "q")
