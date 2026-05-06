@@ -2,8 +2,10 @@
 import sys
 from functools import wraps
 from pathlib import Path
+
 # from time import time
-from typing import Any, Callable
+from typing import Any
+from typing import Callable
 
 
 def log(filename: str = None):
