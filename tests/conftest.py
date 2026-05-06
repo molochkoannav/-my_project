@@ -207,4 +207,3 @@ def no_required_currency() -> list[dict]:
 def empty_list() -> list[dict]:
     """Фикстура возвращает пустой список"""
     return []
-
