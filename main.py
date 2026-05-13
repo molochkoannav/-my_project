@@ -72,7 +72,7 @@ if __name__ == "__main__":
     usd_transactions = filter_by_currency(transactions, "RUB")
     for _ in range(2):
         print(next(usd_transactions))
-    #
+
     # descriptions = transaction_descriptions(trans)
     # for _ in range(1):
     #     print(next(descriptions, "пусто"))
