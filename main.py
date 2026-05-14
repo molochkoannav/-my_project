@@ -7,6 +7,8 @@
 # from src.generators import transaction_descriptions
 # from src.generators import card_number_generator
 from src.utils import get_read_transactions
+import requests
+from src.external_api import get_valute_transactions
 
 if __name__ == "__main__":
     # print(mask_account_card("Maestro 1596837868705199"))
@@ -80,4 +82,16 @@ if __name__ == "__main__":
     #
     # for card_number in card_number_generator(1000000000000000, 1000000000000001):
     #     print(card_number)
-    print(get_read_transactions("data/operations.json"))
+    data = get_read_transactions("data/operations.json")
+    for transaction in data:
+        data_result = get_valute_transactions(transaction)
+        # print(type(transaction))
+        # print(transaction)
+        print(data_result)
+
+
+#     url = 'https://www.cbr.ru/currency_base/daily/'
+#     response = requests.get(url)
+# #
+# #
+#     print(response.content)
