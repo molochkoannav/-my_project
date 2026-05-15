@@ -82,16 +82,23 @@ if __name__ == "__main__":
     #
     # for card_number in card_number_generator(1000000000000000, 1000000000000001):
     #     print(card_number)
-    data = get_read_transactions("data/operations.json")
-    for transaction in data:
-        data_result = get_valute_transactions(transaction)
-        # print(type(transaction))
-        # print(transaction)
-        print(data_result)
+    # data = get_read_transactions("data/operations.json")
+    # for transaction in data:
+    data_result = get_valute_transactions({
+    "id": 441945886,
+    "state": "EXECUTED",
+    "date": "2019-08-26T10:50:58.294041",
+    "operationAmount": {
+      "amount": "31957.58",
+      "currency": {
+        "name": "руб.",
+        "code": "EUR"
+      }
+    },
+    "description": "Перевод организации",
+    "from": "Maestro 1596837868705199",
+    "to": "Счет 64686473678894779589"
+  })
 
+    print(data_result)
 
-#     url = 'https://www.cbr.ru/currency_base/daily/'
-#     response = requests.get(url)
-# #
-# #
-#     print(response.content)
