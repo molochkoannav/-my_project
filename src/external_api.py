@@ -1,7 +1,6 @@
 
 import requests
 
-
 def get_valute_transactions(transaction: dict)-> float:
     """ Функция для получения курса валют и конвертации суммы в рубли"""
     try:
