@@ -1,8 +1,8 @@
-
 import requests
 
-def get_valute_transactions(transaction: dict)-> float:
-    """ Функция для получения курса валют и конвертации суммы в рубли"""
+
+def get_valute_transactions(transaction: dict) -> float:
+    """Функция для получения курса валют и конвертации суммы в рубли"""
     try:
         amount = float(transaction.get("operationAmount", {}).get("amount"))
         currency_code = transaction.get("operationAmount", {}).get("currency", {}).get("code")
@@ -23,8 +23,6 @@ def get_valute_transactions(transaction: dict)-> float:
                 return 0.0
             return round(amount * usd_amount, 2)
 
-
-
         elif currency_code == "EUR":
             url = "https://www.cbr-xml-daily.ru/daily_json.js"
             response = requests.get(url)
@@ -34,7 +32,6 @@ def get_valute_transactions(transaction: dict)-> float:
             if eur_amount is None:
                 return 0.0
             return round(amount * eur_amount, 2)
-
 
     except (ValueError, TypeError, AttributeError):
         return 0.0
