@@ -1,4 +1,5 @@
 from typing import Union
+import logging
 
 
 def get_mask_card_number(card_number: Union[str]) -> Union[str]:
