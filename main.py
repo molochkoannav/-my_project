@@ -1,8 +1,8 @@
-# from src.masks import get_mask_account
-# from src.masks import get_mask_card_number
+from src.masks import get_mask_account
+from src.masks import get_mask_card_number
 # from src.processing import sort_by_date
-# from src.wiget import get_date
-# from src.wiget import mask_account_card
+from src.wiget import get_date
+from src.wiget import mask_account_card
 # from src.generators import filter_by_currency
 # from src.generators import transaction_descriptions
 # from src.generators import card_number_generator
@@ -11,16 +11,16 @@ import requests
 from src.external_api import get_valute_transactions
 
 if __name__ == "__main__":
-    # print(mask_account_card("Maestro 1596837868705199"))
-    # print(mask_account_card("Счет 64686473678894779589"))
-    # print(mask_account_card("MasterCard 7158300734726758"))
-    # print(mask_account_card("Visa Classic 6831982476737658"))
-    # print(mask_account_card("Visa Platinum 8990922113665229"))
-    # print(mask_account_card("Visa Gold 5999414228426353"))
-    # print(mask_account_card("Счет 73654108430135874305"))
-    # print(get_date("2024-03-11T02:26:18.671407"))
-    # print(get_mask_card_number('0111123412341234'))
-    # print(get_mask_account('73654108430135874305'))
+    print(mask_account_card("Maestro 1596837868705199"))
+    print(mask_account_card("Счет 64686473678894779589"))
+    print(mask_account_card("MasterCard 7158300734726758"))
+    print(mask_account_card("Visa Classic 6831982476737658"))
+    print(mask_account_card("Visa Platinum 8990922113665229"))
+    print(mask_account_card("Visa Gold 5999414228426353"))
+    print(mask_account_card("Счет 73654108430135874305"))
+    print(get_date("2024-03-11T02:26:18.671407"))
+    print(get_mask_card_number('0111123412341234'))
+    print(get_mask_account('73654108430135874305'))
     # print(sort_by_date([
     #             {"id": 41428829, "state": "EXECUTED", "date": "2019-13-03T18:35:29.512364"},
     #             {"id": 939719570, "state": "EXECUTED", "date": "1111/1111/111"},
