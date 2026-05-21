@@ -39,14 +39,14 @@ def get_read_transactions(file_path):
                 logger_ut.info("Данные считаны")
                 return data
             else:
-                logger_ut.info("Данные не считаны")
+                logger_ut.warning("Данные не считаны")
                 return []
     except FileNotFoundError:
-        logger_ut.warning("Файл не найден")
+        logger_ut.error("Файл не найден")
         return []
     except json.decoder.JSONDecodeError:
-        logger_ut.warning("Ошибка чтения данных")
+        logger_ut.error("Ошибка чтения данных")
         return []
     except ValueError:
-        logger_ut.warning("Ошибка чтения данных")
+        logger_ut.error("Ошибка чтения данных")
         return []
