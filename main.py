@@ -1,19 +1,24 @@
-from src.masks import get_mask_account
-from src.masks import get_mask_card_number
+# from src.masks import get_mask_account
+# from src.masks import get_mask_card_number
 # from src.processing import sort_by_date
-from src.wiget import get_date
-from src.wiget import mask_account_card
+# from src.wiget import get_date
+# from src.wiget import mask_account_card
 # from src.generators import filter_by_currency
 # from src.generators import transaction_descriptions
 # from src.generators import card_number_generator
-from src.utils import get_read_transactions
+# from src.utils import get_read_transactions
+# from src.external_api import get_valute_transactions
 from src.data_loader import csv_reader
+from src.data_loader import excel_reader
 
-from src.external_api import get_valute_transactions
+
 
 if __name__ == "__main__":
-    result = csv_reader("data/transactions.csv")
-    print(result)
+    result_1 = csv_reader("data/transactions.csv")
+    print(result_1)
+    result_2 = excel_reader("data/transactions_excel.xlsx")
+    print(result_2)
+
     # print(mask_account_card("Maestro 1596837868705199"))
     # print(mask_account_card("Счет 64686473678894779589"))
     # print(mask_account_card("MasterCard 7158300734726758"))

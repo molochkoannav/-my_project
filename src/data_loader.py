@@ -1,4 +1,3 @@
-import csv
 from pathlib import Path
 from typing import Any, Dict, List
 import logging
@@ -33,11 +32,11 @@ def csv_reader(file_path: Path) -> list[dict]:
 
     try:
         logger_dl.info(f"Файл {file_path} найден, начинаем читать")
-        df = pd.read_csv(file_path, delimiter=";", encoding="utf-8")
-        df.set_index('id', inplace=True)
-        list_transaction = df.to_dict(orient="records")
-        logger_dl.info(f"Успешно прочитано {len(list_transaction)} записей")
-        return list_transaction
+        df_csv = pd.read_csv(file_path, delimiter=";", encoding="utf-8")
+        df_csv.set_index('id', inplace=True)
+        list_transaction_csv = df_csv.to_dict(orient="records")
+        logger_dl.info(f"Успешно прочитано {len(list_transaction_csv)} записей")
+        return list_transaction_csv
 
     except FileNotFoundError:
         logger_dl.error(f"Файл {file_path} не найден")
@@ -51,4 +50,22 @@ def csv_reader(file_path: Path) -> list[dict]:
 
 def excel_reader(file_path: Path) -> list[dict]:
     """Функция читает файл excel и возвращает список словарей"""
-    pass
+    try:
+        logger_dl.info(f"Файл {file_path} найден, начинаем читать")
+        df_excel = pd.read_excel(file_path)
+        df_excel.set_index('id', inplace=True)
+        list_transaction_excel = df_excel.to_dict(orient="records")
+        logger_dl.info(f"Успешно прочитано {len(list_transaction_excel)} записей")
+        return list_transaction_excel
+    except FileNotFoundError:
+        logger_dl.error(f"Файл {file_path} не найден")
+        raise
+    except pd.errors.EmptyDataError:
+        logger_dl.error(f"Файл {file_path} пуст")
+        raise
+    except Exception as e:
+        logger_dl.error(f"Ошибка при чтении файла {file_path}: {e}")
+        raise
+
+
+
