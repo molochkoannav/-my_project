@@ -1,8 +1,7 @@
-from pathlib import Path
-from typing import Any, Dict, List
 import logging
-import pandas as pd
+from pathlib import Path
 
+import pandas as pd
 
 current_file = Path(__file__)
 project_root = current_file.parent.parent
@@ -33,7 +32,7 @@ def csv_reader(file_path: Path) -> list[dict]:
     try:
         logger_dl.info(f"Файл {file_path} найден, начинаем читать")
         df_csv = pd.read_csv(file_path, delimiter=";", encoding="utf-8")
-        df_csv.set_index('id', inplace=True)
+        df_csv.set_index("id", inplace=True)
         list_transaction_csv = df_csv.to_dict(orient="records")
         logger_dl.info(f"Успешно прочитано {len(list_transaction_csv)} записей")
         return list_transaction_csv
@@ -48,12 +47,13 @@ def csv_reader(file_path: Path) -> list[dict]:
         logger_dl.error(f"Ошибка при чтении файла {file_path}: {e}")
         raise
 
+
 def excel_reader(file_path: Path) -> list[dict]:
     """Функция читает файл excel и возвращает список словарей"""
     try:
         logger_dl.info(f"Файл {file_path} найден, начинаем читать")
         df_excel = pd.read_excel(file_path)
-        df_excel.set_index('id', inplace=True)
+        df_excel.set_index("id", inplace=True)
         list_transaction_excel = df_excel.to_dict(orient="records")
         logger_dl.info(f"Успешно прочитано {len(list_transaction_excel)} записей")
         return list_transaction_excel
@@ -66,6 +66,3 @@ def excel_reader(file_path: Path) -> list[dict]:
     except Exception as e:
         logger_dl.error(f"Ошибка при чтении файла {file_path}: {e}")
         raise
-
-
-
