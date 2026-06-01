@@ -50,3 +50,14 @@ def get_read_transactions(file_path):
     except ValueError:
         logger_ut.error("Ошибка чтения данных")
         return []
+
+
+def process_bank_search(data:list[dict], search:str)->list[dict]:
+    """Принимает список словарей с данными о банковских операциях и строку поиска,
+    а возвращает список словарей, у которых в описании есть данная строка."""
+    pass
+
+def process_bank_operations(data:list[dict], categories:list)->dict:
+    """Принимает список словарей с данными о банковских операциях и возвращает словарь,
+    в котором ключами являются категории, а значениями - списки словарей с данными о транзакциях."""
+    pass
