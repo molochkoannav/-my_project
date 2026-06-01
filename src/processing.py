@@ -7,10 +7,8 @@ def filter_by_state(api_list: list[dict], state: str) -> list[dict]:
             if api.get("state") == state:
                 filtered_api_list.append(api)
                 return filtered_api_list
-    except KeyError:
-        return """Статус операции "test" недоступен.
-                Введите статус, по которому необходимо выполнить фильтрацию. 
-                Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING"""
+    except KeyError, ValueError:
+        return []
 
 
 
