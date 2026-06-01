@@ -1,12 +1,17 @@
-def filter_by_state(api_list: list[dict], state: str = "EXECUTED") -> list[dict]:
+def filter_by_state(api_list: list[dict], state: str) -> list[dict]:
     """Функция фильтрует списки словарей по ключу 'state'"""
-    filtered_api_list: list[dict] = []
+    try:
+        filtered_api_list: list[dict] = []
 
-    for api in api_list:
-        if api.get("state") == state:
-            filtered_api_list.append(api)
+        for api in api_list:
+            if api.get("state") == state:
+                filtered_api_list.append(api)
+                return filtered_api_list
+    except KeyError:
+        return """Статус операции "test" недоступен.
+                Введите статус, по которому необходимо выполнить фильтрацию. 
+                Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING"""
 
-    return filtered_api_list
 
 
 def sort_by_date(api_list: list[dict], reverse: bool = True) -> list[dict]:

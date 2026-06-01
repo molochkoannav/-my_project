@@ -61,3 +61,6 @@ def process_bank_operations(data:list[dict], categories:list)->dict:
     """Принимает список словарей с данными о банковских операциях и возвращает словарь,
     в котором ключами являются категории, а значениями - списки словарей с данными о транзакциях."""
     pass
+
+if __name__ == "__main__":
+    print(process_bank_search(data, ))
