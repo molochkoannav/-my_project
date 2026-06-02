@@ -6,7 +6,7 @@ def filter_by_state(api_list: list[dict], state: str) -> list[dict]:
         for api in api_list:
             if api.get("state") == state:
                 filtered_api_list.append(api)
-                return filtered_api_list
+        return filtered_api_list
     except KeyError, ValueError:
         return []
 
