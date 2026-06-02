@@ -4,6 +4,7 @@ from collections import Counter
 from pathlib import Path
 import re
 
+
 current_file = Path(__file__)
 project_root = current_file.parent.parent
 log_dir = project_root / "logs"
@@ -84,5 +85,7 @@ def process_bank_operations(data:list[dict], categories:list)->dict:
     counter = Counter(category_list)
 
     return {category: counter.get(category, 0) for category in categories}
+
+
 
 
