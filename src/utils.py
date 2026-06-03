@@ -2,6 +2,7 @@ import json
 import logging
 from collections import Counter
 from pathlib import Path
+import pandas as pd
 import re
 
 
@@ -58,7 +59,6 @@ def get_read_transactions(file_path):
 def process_bank_search(data:list[dict], search:str)->list[dict]:
     """Принимает список словарей с данными о банковских операциях и строку поиска,
     а возвращает список словарей, у которых в описании есть данная строка."""
-
     pattern = re.compile(f"{search}", re.IGNORECASE)
     searching_transactions = [transaction for transaction in data if pattern.search(transaction["description"])]
     return searching_transactions
@@ -67,24 +67,17 @@ def process_bank_search(data:list[dict], search:str)->list[dict]:
 def process_bank_operations(data:list[dict], categories:list)->dict:
     """Принимает список словарей с данными о банковских операциях и возвращает словарь,
     в котором ключами являются категории, а значениями - списки словарей с данными о транзакциях."""
-    patterns = {
-        "Платежи": re.compile(r"платеж|оплата", re.IGNORECASE),
-        "Переводы": re.compile(r"перевод", re.IGNORECASE),
-        "Вклады": re.compile(r"вклад|открытие вклада", re.IGNORECASE)
-    }
+    count_categories = []
+    for operation in data:
+        if operation.get("description","") in categories:
+            count_categories.append(operation.get("description",""))
+    return dict(Counter(count_categories))
 
-    # Один проход: для каждой транзакции определяем категорию и сразу считаем
-    category_list = [
-        category
-        for transaction in data
-        if transaction.get("description")
-        for category, pattern in patterns.items()
-        if pattern.search(transaction["description"])
-    ]
 
-    counter = Counter(category_list)
 
-    return {category: counter.get(category, 0) for category in categories}
+
+
+
 
 
 
