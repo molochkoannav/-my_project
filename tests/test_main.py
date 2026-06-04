@@ -25,6 +25,7 @@ def test_main_json_success(
     mock_get_transactions,
     mock_input
 ):
+    """Тестируем выбор JSON файла"""
     mock_get_transactions.return_value = [{
         "id": 1,
         "state": "EXECUTED",
@@ -79,6 +80,7 @@ def test_main_json_success(
 @patch('main.get_date')
 @patch('main.mask_account_card')
 def test_main_csv(mock_mask_card, mock_get_date, mock_filter_state, mock_csv_reader, mock_input):
+    """Тестируем выбор CSV"""
     mock_csv_reader.return_value = [{
         "id": 1,
         "state": "EXECUTED",
@@ -111,6 +113,7 @@ def test_main_csv(mock_mask_card, mock_get_date, mock_filter_state, mock_csv_rea
 @patch('main.get_date')
 @patch('main.mask_account_card')
 def test_main_excel(mock_mask_card, mock_get_date, mock_filter_state, mock_excel_reader, mock_input):
+    """Тестируем выбор Excel """
     mock_excel_reader.return_value = [{
         "id": 1,
         "state": "EXECUTED",
@@ -143,6 +146,7 @@ def test_main_excel(mock_mask_card, mock_get_date, mock_filter_state, mock_excel
 @patch('main.get_date')
 @patch('main.mask_account_card')
 def test_main_invalid_menu_choice(mock_mask_card, mock_get_date, mock_filter_state, mock_get_transactions, mock_input):
+    """Тестируем неправильный выбор"""
     mock_get_transactions.return_value = [{
         "id": 1,
         "state": "EXECUTED",
@@ -190,6 +194,7 @@ def test_main_invalid_menu_choice(mock_mask_card, mock_get_date, mock_filter_sta
 @patch('main.get_date')
 @patch('main.mask_account_card')
 def test_main_invalid_status(mock_mask_card, mock_get_date, mock_filter_state, mock_get_transactions, mock_input):
+    """Тестируем не правильный статус"""
     mock_get_transactions.return_value = [{
         "id": 1,
         "state": "EXECUTED",
@@ -242,6 +247,7 @@ def test_main_invalid_status(mock_mask_card, mock_get_date, mock_filter_state, m
 @patch('main.get_date')
 @patch('main.mask_account_card')
 def test_main_sort_descending(mock_mask_card, mock_get_date, mock_sort_date, mock_filter_state, mock_get_transactions, mock_input):
+    """Тестируем сортировку по дате"""
     mock_get_transactions.return_value = [{
         "id": 1,
         "date": "2024-01-15T10:00:00Z",
@@ -291,6 +297,7 @@ def test_main_sort_descending(mock_mask_card, mock_get_date, mock_sort_date, moc
 @patch('main.get_date')
 @patch('main.mask_account_card')
 def test_main_sort_ascending(mock_mask_card, mock_get_date, mock_sort_date, mock_filter_state, mock_get_transactions, mock_input):
+    """Тестируем сортироваку по дате по возрастанию"""
     mock_get_transactions.return_value = [{
         "id": 1,
         "date": "2024-01-15T10:00:00Z",
@@ -340,6 +347,7 @@ def test_main_sort_ascending(mock_mask_card, mock_get_date, mock_sort_date, mock
 @patch('main.get_date')
 @patch('main.mask_account_card')
 def test_main_filter_rub(mock_mask_card, mock_get_date, mock_filter_currency, mock_filter_state, mock_get_transactions, mock_input):
+    """Тестируем фильтрацию по валюте"""
     mock_get_transactions.return_value = [{
         "id": 1,
         "state": "EXECUTED",
@@ -387,7 +395,13 @@ def test_main_filter_rub(mock_mask_card, mock_get_date, mock_filter_currency, mo
 @patch('main.process_bank_search')
 @patch('main.get_date')
 @patch('main.mask_account_card')
-def test_main_search_description(mock_mask_card, mock_get_date, mock_search, mock_filter_state, mock_get_transactions, mock_input):
+def test_main_search_description(mock_mask_card,
+                                 mock_get_date,
+                                 mock_search,
+                                 mock_filter_state,
+                                 mock_get_transactions,
+                                 mock_input):
+    """Тестируем поиск по описанию"""
     mock_get_transactions.return_value = [{
         "id": 1,
         "description": "Покупка продуктов",
@@ -435,6 +449,7 @@ def test_main_search_description(mock_mask_card, mock_get_date, mock_search, moc
 @patch('main.filter_by_state')
 @patch('main.filter_by_currency')
 def test_main_empty_result(mock_filter_currency, mock_filter_state, mock_get_transactions, mock_input):
+    """Тестируем пустой результат"""
     mock_get_transactions.return_value = [{
         "id": 1,
         "date": "2024-01-15T10:00:00Z",
