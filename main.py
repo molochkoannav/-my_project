@@ -7,7 +7,6 @@ from src.data_loader import csv_reader
 from src.data_loader import excel_reader
 from src.wiget import mask_account_card, get_date
 
-
 def main() -> None:
     """
         Главная функция программы для работы с банковскими транзакциями.

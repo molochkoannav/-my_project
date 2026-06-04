@@ -2,7 +2,6 @@ import json
 import logging
 from collections import Counter
 from pathlib import Path
-import pandas as pd
 import re
 
 
@@ -59,8 +58,10 @@ def get_read_transactions(file_path):
 def process_bank_search(data:list[dict], search:str)->list[dict]:
     """Принимает список словарей с данными о банковских операциях и строку поиска,
     а возвращает список словарей, у которых в описании есть данная строка."""
-    pattern = re.compile(f"{search}", re.IGNORECASE)
-    searching_transactions = [transaction for transaction in data if pattern.search(transaction["description"])]
+    logger_ut.info("Запуск модуля чтения данных")
+    pattern = re.compile(f"{search}", re.IGNORECASE | re.UNICODE)
+    searching_transactions = [transaction for transaction in data if pattern.search(transaction.get("description",""))]
+    logger_ut.info("Данные отфильтрованы")
     return searching_transactions
 
 
