@@ -8,14 +8,26 @@ from src.data_loader import excel_reader
 from src.wiget import mask_account_card, get_date
 
 
-def main():
+def main() -> None:
+    """
+        Главная функция программы для работы с банковскими транзакциями.
+
+        Позволяет пользователю:
+        1. Выбрать источник данных (JSON, CSV или XLSX файл)
+        2. Отфильтровать транзакции по статусу (EXECUTED, CANCELED, PENDING)
+        3. Отсортировать по дате (по возрастанию/убыванию)
+        4. Отфильтровать только рублевые транзакции
+        5. Выполнить поиск по описанию транзакций
+
+        Функция только выводит результаты в консоль
+    """
     print("\nПривет! Добро пожаловать в программу работы с банковскими транзакциями")
     while True:
         print("1. Получить информацию о транзакциях из JSON-файла")
         print("2. Получить информацию о транзакциях из CSV-файла")
         print("3. Получить информацию о транзакциях из XLSX-файла")
         user_input = input("Введите номер пункта меню: ")
-        data_choice_user = 0
+        data_choice_user = None
         if user_input == "1":
             print("Для обработки выбран JSON-файл")
             json_transactions = get_read_transactions("data/operations.json")
@@ -57,18 +69,15 @@ def main():
         else:
             print(f"Программа: Статус операции {state} недоступен.")
 
-    user_confirmation = input("Отсортировать операции по дате? (Да/Нет): ").lower
-    if user_confirmation == "да":
-        filtered_operations = sort_by_date(filtered_operations)
 
     while True:
-        user_input = input("Отфильтровать операции по сумме? (Да/Нет): ").lower()
+        user_input = input("Отсортировать операции по дате? (Да/Нет) ").lower()
         if user_input == "да":
             user_confirmation_reverse = input("Отсортировать по возрастанию/ по убыванию? ")
-            if user_confirmation_reverse == "по возрастанию":
+            if user_confirmation_reverse == "по убыванию":
                 filtered_operations = sort_by_date(filtered_operations)
                 break
-            elif user_confirmation_reverse == "по убыванию":
+            elif user_confirmation_reverse == "по возрастанию":
                 filtered_operations = sort_by_date(filtered_operations, reverse=False)
                 break
             else:
@@ -85,7 +94,9 @@ def main():
     if filtered_operations == []:
         print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
     else:
+        print()
         print("Распечатываю итоговый список транзакций...")
+        print()
         print(f"Всего банковских операций в выборке: {len(filtered_operations)}")
 
         for transaction in filtered_operations:
