@@ -1,24 +1,26 @@
-from src.generators import filter_by_currency
-from src.utils import get_read_transactions
-from src.processing import filter_by_state
-from src.processing import sort_by_date
-from src.utils import process_bank_search
 from src.data_loader import csv_reader
 from src.data_loader import excel_reader
-from src.wiget import mask_account_card, get_date
+from src.generators import filter_by_currency
+from src.processing import filter_by_state
+from src.processing import sort_by_date
+from src.utils import get_read_transactions
+from src.utils import process_bank_search
+from src.wiget import get_date
+from src.wiget import mask_account_card
+
 
 def main() -> None:
     """
-        Главная функция программы для работы с банковскими транзакциями.
+    Главная функция программы для работы с банковскими транзакциями.
 
-        Позволяет пользователю:
-        1. Выбрать источник данных (JSON, CSV или XLSX файл)
-        2. Отфильтровать транзакции по статусу (EXECUTED, CANCELED, PENDING)
-        3. Отсортировать по дате (по возрастанию/убыванию)
-        4. Отфильтровать только рублевые транзакции
-        5. Выполнить поиск по описанию транзакций
+    Позволяет пользователю:
+    1. Выбрать источник данных (JSON, CSV или XLSX файл)
+    2. Отфильтровать транзакции по статусу (EXECUTED, CANCELED, PENDING)
+    3. Отсортировать по дате (по возрастанию/убыванию)
+    4. Отфильтровать только рублевые транзакции
+    5. Выполнить поиск по описанию транзакций
 
-        Функция только выводит результаты в консоль
+    Функция только выводит результаты в консоль
     """
     print("\nПривет! Добро пожаловать в программу работы с банковскими транзакциями")
     while True:
@@ -32,15 +34,19 @@ def main() -> None:
             json_transactions = get_read_transactions("data/operations.json")
             new_json = []
             for transaction in json_transactions:
-                new_json.append({"id":transaction.get("id"),
-                                "state":transaction.get("state"),
-                                "date":transaction.get("date"),
-                                "amount":transaction.get("operationAmount",{}).get("amount"),
-                                "currency_name":transaction.get("operationAmount",{}).get("currency",{}).get("name"),
-                                "currency_code": transaction.get("operationAmount",{}).get("currency",{}).get("code"),
-                                "from": transaction.get("from"),
-                                "to": transaction.get("to"),
-                                "description": transaction.get("description")})
+                new_json.append(
+                    {
+                        "id": transaction.get("id"),
+                        "state": transaction.get("state"),
+                        "date": transaction.get("date"),
+                        "amount": transaction.get("operationAmount", {}).get("amount"),
+                        "currency_name": transaction.get("operationAmount", {}).get("currency", {}).get("name"),
+                        "currency_code": transaction.get("operationAmount", {}).get("currency", {}).get("code"),
+                        "from": transaction.get("from"),
+                        "to": transaction.get("to"),
+                        "description": transaction.get("description"),
+                    }
+                )
             data_choice_user = new_json
             break
 
@@ -68,7 +74,6 @@ def main() -> None:
         else:
             print(f"Программа: Статус операции {state} недоступен.")
 
-
     while True:
         user_input = input("Отсортировать операции по дате? (Да/Нет) ").lower()
         if user_input == "да":
@@ -86,10 +91,10 @@ def main() -> None:
     user_input = input("Выводить только рублевые транзакции? Да/Нет ").lower()
     if user_input == "да":
         filtered_operations = filter_by_currency(filtered_operations, "RUB")
-    user_input = input(f"Отфильтровать список транзакций по определенному слову в описании? Да/Нет ").lower()
+    user_input = input("Отфильтровать список транзакций по определенному слову в описании? Да/Нет ").lower()
     if user_input == "да":
-         looking_for_words = input("Введите слово или фразу для поиска: ").lower()
-         filtered_operations = process_bank_search(filtered_operations, looking_for_words)
+        looking_for_words = input("Введите слово или фразу для поиска: ").lower()
+        filtered_operations = process_bank_search(filtered_operations, looking_for_words)
     if filtered_operations == []:
         print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
     else:
@@ -110,5 +115,6 @@ def main() -> None:
             print(f"Сумма: {transaction.get('amount')} {transaction.get('currency_code')}")
             print()
 
+
 if __name__ == "__main__":
-   main()
+    main()

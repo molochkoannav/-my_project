@@ -1,7 +1,10 @@
 import json
 from unittest.mock import mock_open
 from unittest.mock import patch
-from src.utils import get_read_transactions, process_bank_search, process_bank_operations
+
+from src.utils import get_read_transactions
+from src.utils import process_bank_operations
+from src.utils import process_bank_search
 
 
 class TestLoadTransactionsWithMocks:
@@ -86,4 +89,3 @@ class TestLoadTransactionsWithMocks:
         result = process_bank_operations(data, categories)
         assert len(result) == 3
         assert result["Перевод на карту"] == 1
-

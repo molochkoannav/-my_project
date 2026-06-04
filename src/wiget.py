@@ -1,11 +1,11 @@
 from datetime import datetime
+
 from src.masks import get_mask_account
 from src.masks import get_mask_card_number
 
 
 def mask_account_card(number: str) -> str:
     """Функция обрабатывает информацию как о картах, так и о счетах"""
-
 
     if not isinstance(number, str):
         return "Номер не введен"
@@ -30,7 +30,6 @@ def mask_account_card(number: str) -> str:
     if len(number) == 20 and number.replace(" ", "").isdigit():
         account = get_mask_account(number)
         return f"Счет {account}"
-
 
     for i, char in enumerate(number):
         if char.isdigit():
