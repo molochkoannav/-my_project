@@ -1,5 +1,7 @@
 import json
 import logging
+import re
+from collections import Counter
 from pathlib import Path
 
 current_file = Path(__file__)
@@ -50,3 +52,25 @@ def get_read_transactions(file_path):
     except ValueError:
         logger_ut.error("Ошибка чтения данных")
         return []
+
+
+def process_bank_search(data: list[dict], search: str) -> list[dict]:
+    """Принимает список словарей с данными о банковских операциях и строку поиска,
+    а возвращает список словарей, у которых в описании есть данная строка."""
+    logger_ut.info("Запуск модуля чтения данных")
+    pattern = re.compile(f"{search}", re.IGNORECASE | re.UNICODE)
+    searching_transactions = [
+        transaction for transaction in data if pattern.search(transaction.get("description", ""))
+    ]
+    logger_ut.info("Данные отфильтрованы")
+    return searching_transactions
+
+
+def process_bank_operations(data: list[dict], categories: list) -> dict:
+    """Принимает список словарей с данными о банковских операциях и возвращает словарь,
+    в котором ключами являются категории, а значениями - списки словарей с данными о транзакциях."""
+    count_categories = []
+    for operation in data:
+        if operation.get("description", "") in categories:
+            count_categories.append(operation.get("description", ""))
+    return dict(Counter(count_categories))

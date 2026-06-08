@@ -7,29 +7,30 @@ from src.masks import get_mask_card_number
 def mask_account_card(number: str) -> str:
     """Функция обрабатывает информацию как о картах, так и о счетах"""
 
-    # СЧЕТ
-    if number.startswith("Счет"):
-        digits = "".join(filter(str.isdigit, number))
+    if not isinstance(number, str):
+        return "Номер не введен"
 
-        if len(digits) != 20:
-            return "Номер счета набран не верно"
-        if digits.startswith("0000"):
-            return "Номер счета набран не верно"
-        temp = number.replace("Счет", "").replace(" ", "")
+    elif "Счет" in number:
+        # digits = "".join(filter(str.isdigit, number))
+        # if len(number) != 15:
+        #     return "Номер счета набран не верно"
+        # if number.startswith("0000"):
+        #     return "Номер счета набран не верно"
+        temp = number.replace("Счет ", "")
         if not temp.isdigit() or len(temp) != 20:
             return "Номер счета набран не верно"
 
-        account = get_mask_account(digits)
+        account = get_mask_account(temp)
         return f"Счет {account}"
 
     # КАРТА
 
-    digits_only = "".join(filter(str.isdigit, number))
-    if len(digits_only) == 20 and number.replace(" ", "").isdigit():
-        account = get_mask_account(digits_only)
+    # digits_only = "".join(filter(str.isdigit, number))
+
+    if len(number) == 20 and number.replace(" ", "").isdigit():
+        account = get_mask_account(number)
         return f"Счет {account}"
 
-    name_part = ""
     for i, char in enumerate(number):
         if char.isdigit():
             name_part = number[:i].strip()
@@ -78,7 +79,7 @@ def get_date(date_string: str) -> str:
 
     # ISO формат 2024-03-11T02:26:18
     try:
-        dt = datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%S")
+        dt = datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%SZ")
         return dt.strftime("%d.%m.%Y")
     except ValueError:
         pass
